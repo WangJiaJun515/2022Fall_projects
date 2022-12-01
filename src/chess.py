@@ -174,6 +174,8 @@ def startGame(board: Board, playerSide: bool, ai: AI) -> None:
             makeMove(move, board)
             printBoard(board)
 
+            
+
 
 def twoPlayerGame(board: Board) -> None:
     parserWhite = InputParser(board, WHITE)

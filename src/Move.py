@@ -32,6 +32,7 @@ class Move:
         # For castling
         # TODO: rookMove should be a 'Move' type to satisfy mypy
         self.rookMove = None
+        self.table = {}
 
     def __str__(self) -> str:
         displayString = 'Old pos : ' + str(self.oldPos) + \

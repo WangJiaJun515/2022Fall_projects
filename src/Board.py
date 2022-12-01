@@ -14,11 +14,11 @@ from src.Pawn import Pawn
 from src.Piece import Piece
 from src.Queen import Queen
 from src.Rook import Rook
+from src.Table import *
 
 
 WHITE = True
 BLACK = False
-
 
 class Board:
     def __init__(
@@ -42,12 +42,20 @@ class Board:
             1: '#BACA44',
         }
 
+        self.PawnTable = PawnTable()
+        self.KnightsTable = KnightsTable()
+        self.BishopTable = BishopTable()
+        self.RooksTable = RooksTable()
+        self.QueensTable = QueensTable()
+        self.KingsTable = KingsTable()
+
         if not mateInOne and not castleBoard and not passant and not promotion:
-            rook_value = [4,8]
+            rook_value = [4, 8]
+            knight_value = [5, 7]
+            pawn_value = [3, 3, 3, 3, 3, 4, 6, 8]
+
             random.shuffle(rook_value)
-            knight_value = [5,7]
             random.shuffle(knight_value)
-            pawn_value = [3,3,3,3,3,4,6,8]
             random.shuffle(pawn_value)
             self.pieces.extend(
                 [
@@ -62,7 +70,8 @@ class Board:
                 ]
             )
             for x in range(8):
-                self.pieces.append(Pawn(self, BLACK, C(x, 6), pawn_value[x]))
+                self.pieces.append(Pawn(self, BLACK, C(x, 6), pawn_value[x]))      
+
             random.shuffle(rook_value)
             random.shuffle(knight_value)
             random.shuffle(pawn_value)
@@ -72,10 +81,10 @@ class Board:
                 [
                     Rook(self, WHITE, C(0, 0), rook_value[0]),
                     Knight(self, WHITE, C(1, 0), knight_value[0]),
-                    Bishop(self, WHITE, C(2, 0),6),
-                    Queen(self, WHITE, C(3, 0),9),
-                    King(self, WHITE, C(4, 0),10),
-                    Bishop(self, WHITE, C(5, 0),6),
+                    Bishop(self, WHITE, C(2, 0), 6),
+                    Queen(self, WHITE, C(3, 0), 9),
+                    King(self, WHITE, C(4, 0), 10),
+                    Bishop(self, WHITE, C(5, 0), 6),
                     Knight(self, WHITE, C(6, 0), knight_value[1]),
                     Rook(self, WHITE, C(7, 0), rook_value[1]),
                 ]
@@ -417,6 +426,40 @@ class Board:
         piece.position = pos
 
     def makeMove(self, move: Move) -> None:
+        move.table = {}
+        for piece in self.pieces:
+            if piece.side != self.currentSide:
+                if piece.stringRep == '▲':
+                    move.table[piece.position] = 5 - piece.power
+                    original_table = self.PawnTable
+                elif piece.stringRep == 'R':
+                    move.table[piece.position] = 6 - piece.power
+                    original_table = self.RooksTable
+                elif piece.stringRep == 'N':
+                    move.table[piece.position] = 6 - piece.power
+                    original_table = self.KnightsTable
+                elif piece.stringRep == 'B':
+                    move.table[piece.position] = 6 - piece.power
+                    original_table = self.BishopTable
+                elif piece.stringRep == 'Q':
+                    move.table[piece.position] = 9 - piece.power
+                    original_table = self.QueensTable
+                elif piece.stringRep == 'K':
+                    move.table[piece.position] = 10 - piece.power
+                    original_table = self.KingsTable
+        
+        if move.newPos in move.table.keys():
+            if piece.side == BLACK:
+                self.points += move.table[move.newPos] + original_table[move.newPos]
+            else:
+                self.points -= move.table[move.newPos] + original_table[move.newPos]
+        else:
+            if piece.side == BLACK:
+                self.points += original_table[move.newPos]
+            else:
+                self.points -= original_table[move.newPos]
+            
+
         self.addMoveToHistory(move)
         if move.kingsideCastle or move.queensideCastle:
             kingToMove = move.piece
@@ -454,7 +497,7 @@ class Board:
                 self.points -= move.specialMovePiece.value - 1  # type: ignore[attr-defined]  # noqa: E501
             move.piece.movesMade += 1
 
-        else:
+        else:    # normal cases
             pieceToMove = move.piece
             pieceToTake = move.pieceToCapture
             if pieceToTake:

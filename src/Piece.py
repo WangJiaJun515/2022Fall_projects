@@ -19,7 +19,7 @@ class Piece:
     value: int
 
     def __init__(
-            self, board: Board, side: bool, position: C, power,movesMade: int = 0
+            self, board: Board, side: bool, position: C, power: int, movesMade: int = 0
     ) -> None:
         self.board = board
         self.side = side
