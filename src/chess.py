@@ -275,7 +275,7 @@ def main() -> None:
     board.whiteColor = args.white
     board.blackColor = args.black
     board.isCheckered = args.checkered
-    args.two = True
+    args.two = False
     try:
         if args.two:
             twoPlayerGame(board)

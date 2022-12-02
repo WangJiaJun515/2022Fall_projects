@@ -41,13 +41,24 @@ class Board:
             0: '#769656',
             1: '#BACA44',
         }
+        self.tables = {}
+        self.tables['R'] = RooksTable()
+        self.tables['▲'] = PawnTable()
+        self.tables['N'] = KnightsTable()
+        self.tables['K'] = KingsTable()
+        self.tables['Q'] = QueensTable
+        self.tables['B'] = BishopTable()
 
+
+
+        '''
         self.PawnTable = PawnTable()
         self.KnightsTable = KnightsTable()
         self.BishopTable = BishopTable()
         self.RooksTable = RooksTable()
         self.QueensTable = QueensTable()
         self.KingsTable = KingsTable()
+        '''
 
         if not mateInOne and not castleBoard and not passant and not promotion:
             rook_value = [4, 8]
@@ -119,6 +130,19 @@ class Board:
     def undoLastMove(self) -> None:
         lastMove, pieceTaken = self.history.pop()
 
+        piece = lastMove.piece
+        original_table = self.tables[lastMove.piece.stringRep]
+        if lastMove.newPos in lastMove.table.keys():
+            if piece.side == BLACK:
+                self.points -= lastMove.table[lastMove.newPos] + original_table.table[lastMove.newPos.rank][lastMove.newPos.file]
+            else:
+                self.points += lastMove.table[lastMove.newPos] + original_table.table[lastMove.newPos.rank][lastMove.newPos.file]
+        else:
+            if piece.side == BLACK:
+                self.points -= original_table.table[lastMove.newPos.rank][lastMove.newPos.file]
+            else:
+                self.points += original_table.table[lastMove.newPos.rank][lastMove.newPos.file]
+
         if lastMove.queensideCastle or lastMove.kingsideCastle:
             king = lastMove.piece
             rook = lastMove.specialMovePiece
@@ -163,10 +187,7 @@ class Board:
             pieceToMoveBack = lastMove.piece
             self.movePieceToPosition(pieceToMoveBack, lastMove.oldPos)
             if pieceTaken:
-                if pieceTaken.side == WHITE:
-                    self.points += pieceTaken.value
-                if pieceTaken.side == BLACK:
-                    self.points -= pieceTaken.value
+
                 self.addPieceToPosition(pieceTaken, lastMove.newPos)
                 self.pieces.append(pieceTaken)
             pieceToMoveBack.movesMade -= 1
@@ -431,33 +452,33 @@ class Board:
             if piece.side != self.currentSide:
                 if piece.stringRep == '▲':
                     move.table[piece.position] = 5 - piece.power
-                    original_table = self.PawnTable
+                    #original_table = self.PawnTable
                 elif piece.stringRep == 'R':
                     move.table[piece.position] = 6 - piece.power
-                    original_table = self.RooksTable
+                    #original_table = self.RooksTable
                 elif piece.stringRep == 'N':
                     move.table[piece.position] = 6 - piece.power
-                    original_table = self.KnightsTable
+                    #original_table = self.KnightsTable
                 elif piece.stringRep == 'B':
                     move.table[piece.position] = 6 - piece.power
-                    original_table = self.BishopTable
+                    #original_table = self.BishopTable
                 elif piece.stringRep == 'Q':
                     move.table[piece.position] = 9 - piece.power
-                    original_table = self.QueensTable
+                    #original_table = self.QueensTable
                 elif piece.stringRep == 'K':
                     move.table[piece.position] = 10 - piece.power
-                    original_table = self.KingsTable
-        
+                    #original_table = self.KingsTable
+        original_table = self.tables[move.piece.stringRep]
         if move.newPos in move.table.keys():
             if piece.side == BLACK:
-                self.points += move.table[move.newPos] + original_table[move.newPos]
+                self.points += move.table[move.newPos] + original_table.table[move.newPos.rank][move.newPos.file]
             else:
-                self.points -= move.table[move.newPos] + original_table[move.newPos]
+                self.points -= move.table[move.newPos] + original_table.table[move.newPos.rank][move.newPos.file]
         else:
             if piece.side == BLACK:
-                self.points += original_table[move.newPos]
+                self.points += original_table.table[move.newPos.rank][move.newPos.file]
             else:
-                self.points -= original_table[move.newPos]
+                self.points -= original_table.table[move.newPos.rank][move.newPos.file]
             
 
         self.addMoveToHistory(move)
@@ -501,10 +522,6 @@ class Board:
             pieceToMove = move.piece
             pieceToTake = move.pieceToCapture
             if pieceToTake:
-                if pieceToTake.side == WHITE:
-                    self.points -= pieceToTake.value
-                if pieceToTake.side == BLACK:
-                    self.points += pieceToTake.value
                 if pieceToTake.stringRep == 'Q' or pieceToTake.stringRep == 'K' or pieceToMove.power >= pieceToTake.power:
                     self.pieces.remove(pieceToTake)
                 else:
