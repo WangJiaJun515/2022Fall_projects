@@ -41,6 +41,8 @@ class Board:
             0: '#769656',
             1: '#BACA44',
         }
+
+        # Initialize the Heuristic reward table for each piece
         self.tables = {}
         self.tables['R'] = RooksTable()
         self.tables['▲'] = PawnTable()
@@ -48,17 +50,6 @@ class Board:
         self.tables['K'] = KingsTable()
         self.tables['Q'] = QueensTable
         self.tables['B'] = BishopTable()
-
-
-
-        '''
-        self.PawnTable = PawnTable()
-        self.KnightsTable = KnightsTable()
-        self.BishopTable = BishopTable()
-        self.RooksTable = RooksTable()
-        self.QueensTable = QueensTable()
-        self.KingsTable = KingsTable()
-        '''
 
         if not mateInOne and not castleBoard and not passant and not promotion:
             rook_value = [4, 8]
@@ -447,41 +438,35 @@ class Board:
         piece.position = pos
 
     def makeMove(self, move: Move) -> None:
+
+        # Check the current board state and Rescale pieces' reward reflecting the position of opponents' pieces
         move.table = {}
         for piece in self.pieces:
             if piece.side != self.currentSide:
                 if piece.stringRep == '▲':
                     move.table[piece.position] = 5 - piece.power
-                    #original_table = self.PawnTable
-                elif piece.stringRep == 'R':
+                elif piece.stringRep in ['R', 'N', 'B']:
                     move.table[piece.position] = 6 - piece.power
-                    #original_table = self.RooksTable
-                elif piece.stringRep == 'N':
-                    move.table[piece.position] = 6 - piece.power
-                    #original_table = self.KnightsTable
-                elif piece.stringRep == 'B':
-                    move.table[piece.position] = 6 - piece.power
-                    #original_table = self.BishopTable
                 elif piece.stringRep == 'Q':
                     move.table[piece.position] = 9 - piece.power
-                    #original_table = self.QueensTable
                 elif piece.stringRep == 'K':
                     move.table[piece.position] = 10 - piece.power
-                    #original_table = self.KingsTable
         original_table = self.tables[move.piece.stringRep]
-        if move.newPos in move.table.keys():
-            if piece.side == BLACK:
+
+        # In the case of moving to occupied coordinate, we need to consider the Heuristic reward table
+        if move.newPos in move.table.keys():    
+            if move.piece.side == WHITE:    # + for WHITE, - for BLACK
                 self.points += move.table[move.newPos] + original_table.table[move.newPos.rank][move.newPos.file]
             else:
                 self.points -= move.table[move.newPos] + original_table.table[move.newPos.rank][move.newPos.file]
         else:
-            if piece.side == BLACK:
+            if move.piece.side == WHITE:
                 self.points += original_table.table[move.newPos.rank][move.newPos.file]
             else:
                 self.points -= original_table.table[move.newPos.rank][move.newPos.file]
-            
 
         self.addMoveToHistory(move)
+
         if move.kingsideCastle or move.queensideCastle:
             kingToMove = move.piece
             rookToMove = move.specialMovePiece
@@ -522,6 +507,7 @@ class Board:
             pieceToMove = move.piece
             pieceToTake = move.pieceToCapture
             if pieceToTake:
+                # We can capture Q and K regardless of the power of each piece
                 if pieceToTake.stringRep == 'Q' or pieceToTake.stringRep == 'K' or pieceToMove.power >= pieceToTake.power:
                     self.pieces.remove(pieceToTake)
                 else:

@@ -1,4 +1,9 @@
 
+'''
+Heuristic piece square tables to evaluate the potential reward of future moves of each piece.
+source: https://medium.com/dscvitpune/lets-create-a-chess-ai-8542a12afef
+'''
+
 class PawnTable:
     def __init__(self) -> None:
         self.table = [
