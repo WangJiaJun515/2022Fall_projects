@@ -40,10 +40,10 @@ class Pawn(Piece):
                 col = advanceOnePosition[1]
                 if col == 7 or col == 0:
                     piecesForPromotion = [
-                        Rook(self.board, self.side, advanceOnePosition),
-                        Knight(self.board, self.side, advanceOnePosition),
-                        Bishop(self.board, self.side, advanceOnePosition),
-                        Queen(self.board, self.side, advanceOnePosition),
+                        Rook(self.board, self.side, advanceOnePosition,8),
+                        Knight(self.board, self.side, advanceOnePosition,8),
+                        Bishop(self.board, self.side, advanceOnePosition,8),
+                        Queen(self.board, self.side, advanceOnePosition,8),
                     ]
                     for piece in piecesForPromotion:
                         move = Move(self, advanceOnePosition)
@@ -81,10 +81,10 @@ class Pawn(Piece):
                     # Promotions
                     if col == 7 or col == 0:
                         piecesForPromotion = [
-                            Rook(self.board, self.side, newPosition),
-                            Knight(self.board, self.side, newPosition),
-                            Bishop(self.board, self.side, newPosition),
-                            Queen(self.board, self.side, newPosition),
+                            Rook(self.board, self.side, newPosition,8),
+                            Knight(self.board, self.side, newPosition,8),
+                            Bishop(self.board, self.side, newPosition,8),
+                            Queen(self.board, self.side, newPosition,8),
                         ]
                         for piece in piecesForPromotion:
                             move = Move(

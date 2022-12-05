@@ -124,13 +124,13 @@ class Board:
         piece = lastMove.piece
         original_table = self.tables[lastMove.piece.stringRep]
         if lastMove.newPos in lastMove.table.keys():
-            if piece.side == BLACK:
-                self.points -= lastMove.table[lastMove.newPos] + original_table.table[lastMove.newPos.rank][lastMove.newPos.file]
+            if piece.side == WHITE:
+                self.points -= lastMove.table[lastMove.newPos] + original_table.table[::-1][lastMove.newPos.rank][lastMove.newPos.file]
             else:
                 self.points += lastMove.table[lastMove.newPos] + original_table.table[lastMove.newPos.rank][lastMove.newPos.file]
         else:
-            if piece.side == BLACK:
-                self.points -= original_table.table[lastMove.newPos.rank][lastMove.newPos.file]
+            if piece.side == WHITE:
+                self.points -= original_table.table[::-1][lastMove.newPos.rank][lastMove.newPos.file]
             else:
                 self.points += original_table.table[lastMove.newPos.rank][lastMove.newPos.file]
 
@@ -254,9 +254,9 @@ class Board:
                 bg_color = (
                     bg(self.tileColors[(x + y) % 2])
                     if self.isCheckered
-                    else ''
+                    else ' '
                 )
-                pieceRep = bg_color + '  ' + attr(0)
+                pieceRep = bg_color + '   ' + attr(0)
                 if piece:
                     side = piece.side
                     color = (
@@ -279,7 +279,7 @@ class Board:
                 '%d  %s' % (8 - r, s.rstrip())
                 for r, s in enumerate(stringRep.split('\n'))
             ]
-            + [' ' * 21, '   a b c d e f g h']
+            + [' ' * 21, '    a   b   c   d   e   f   g   h']
         ).rstrip()
         return sRep
 
@@ -444,24 +444,24 @@ class Board:
         for piece in self.pieces:
             if piece.side != self.currentSide:
                 if piece.stringRep == '▲':
-                    move.table[piece.position] = 5 * (5 - piece.power)
+                    move.table[piece.position] = 3 * (5 - piece.power)
                 elif piece.stringRep in ['R', 'N', 'B']:
                     move.table[piece.position] = 5 * (6 - piece.power)
                 elif piece.stringRep == 'Q':
-                    move.table[piece.position] = 5 * (9 - piece.power)
+                    move.table[piece.position] = 150
                 elif piece.stringRep == 'K':
-                    move.table[piece.position] = 5 * (10 - piece.power)
+                    move.table[piece.position] = 1000
         original_table = self.tables[move.piece.stringRep]
 
         # In the case of moving to occupied coordinate, we need to consider the Heuristic reward table
         if move.newPos in move.table.keys():    
             if move.piece.side == WHITE:    # + for WHITE, - for BLACK
-                self.points += move.table[move.newPos] + original_table.table[move.newPos.rank][move.newPos.file]
+                self.points += move.table[move.newPos] + original_table.table[::-1][move.newPos.rank][move.newPos.file]
             else:
                 self.points -= move.table[move.newPos] + original_table.table[move.newPos.rank][move.newPos.file]
         else:
             if move.piece.side == WHITE:
-                self.points += original_table.table[move.newPos.rank][move.newPos.file]
+                self.points += original_table.table[::-1][move.newPos.rank][move.newPos.file]
             else:
                 self.points -= original_table.table[move.newPos.rank][move.newPos.file]
 
