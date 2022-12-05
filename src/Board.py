@@ -48,7 +48,7 @@ class Board:
         self.tables['▲'] = PawnTable()
         self.tables['N'] = KnightsTable()
         self.tables['K'] = KingsTable()
-        self.tables['Q'] = QueensTable
+        self.tables['Q'] = QueensTable()
         self.tables['B'] = BishopTable()
 
         if not mateInOne and not castleBoard and not passant and not promotion:
@@ -444,13 +444,13 @@ class Board:
         for piece in self.pieces:
             if piece.side != self.currentSide:
                 if piece.stringRep == '▲':
-                    move.table[piece.position] = 5 - piece.power
+                    move.table[piece.position] = 5 * (5 - piece.power)
                 elif piece.stringRep in ['R', 'N', 'B']:
-                    move.table[piece.position] = 6 - piece.power
+                    move.table[piece.position] = 5 * (6 - piece.power)
                 elif piece.stringRep == 'Q':
-                    move.table[piece.position] = 9 - piece.power
+                    move.table[piece.position] = 5 * (9 - piece.power)
                 elif piece.stringRep == 'K':
-                    move.table[piece.position] = 10 - piece.power
+                    move.table[piece.position] = 5 * (10 - piece.power)
         original_table = self.tables[move.piece.stringRep]
 
         # In the case of moving to occupied coordinate, we need to consider the Heuristic reward table
