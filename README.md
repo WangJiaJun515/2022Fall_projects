@@ -41,16 +41,26 @@ Heuristic Scoring Table
 and a lower value at a non-favorable place.
 - For example, in the case of Queen piece, she would like her to be placed at the center position
 as she can dominate relatively more positions from the center.
+
+
+
 ![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/table.pic.jpg)
 
 - Consider the scoring table initialized for each piece.
 - Also, we need to include the position of opponents’ pieces such that we can adjust the value of scoring table to make reasonable move: Our pieces would - - rather avoid the opponents’ pieces having higher values (6, 7, 8)
 - For each turn, scoring function updates the values in the original scoring table by considering possible legal moves of all pieces and finding whether the new coordinate is occupied by the opponent’s piece.
+- Rule Exception: Queen and King can be captured by any other pieces, to make the game end.
+
+
 ![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/scoring1.jpg)
+
+
+
+
 
 ![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/scoring2.jpg)
 
-Rule Exception: Queen and King can be captured by any other pieces, to make the game end.
+
 
 
 
