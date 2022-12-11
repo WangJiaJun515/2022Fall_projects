@@ -23,8 +23,14 @@ Indian Poker Game + Original Chess -> A New Version of Chess
 - With a deck of cards, every player has one card each, they will stick it on their forehead without seeing their cards.
 - Objective: Have the highest card in play to win
 - ”Reversed Poker”: As opponents are unaware of their cards, we need to give them impression that they have a high one.
-![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/India_poker.pic.jpg)
+![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/India_poker.jpg)
 
+
+A new version of Chess
+
+- Each piece is randomly assigned its original value and a certain piece could be capture only if it has lower value than the opponent’s one
+- Each player is not aware of values of their own pieces, only to know values of opponent’s pieces.
+![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/new_version.jpg)
 
 
 
