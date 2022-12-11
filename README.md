@@ -66,4 +66,4 @@ as she can dominate relatively more positions from the center.
 
 ## Technical stuff
 
-The AI is a simple brute-force AI with no pruning. It evaluates a given position by counting the value of the pieces for each side (pawn -> 1, knight/bishop -> 3, rook -> 5, queen -> 9). It will evaluate the tree of moves, and take the path that results in the greatest gain. To learn more, check out [my post on how it works](https://mbuffett.com/posts/chess-ai/).
+The AI is a simple brute-force Minimax AI with pruning. The board class contains an attribute named points, if one piece moves to a certain position, the points of board will (white piece - adding, black piece - reducing) update correlative points through scoring table and opponents' value. Then it will evaluate the tree of moves and get the path that takes the greatest points.
