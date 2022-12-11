@@ -1,103 +1,33 @@
-[![Run on Repl.it](https://repl.it/badge/github/marcusbuffett/command-line-chess)](https://repl.it/github/marcusbuffett/command-line-chess)
 
-# command-line-chess
+A modified version of Chess
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/marcusbuffett/command-line-chess/graphs/commit-activity)
-[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![PyPI download month](https://img.shields.io/pypi/dm/cl-chess.svg)](https://pypi.python.org/project/cl-chess/)
-[![PyPi version](https://badgen.net/pypi/v/cl-chess/)](https://pypi.org/project/cl-chess)
-[![GitHub issues](https://img.shields.io/github/issues/marcusbuffett/command-line-chess.svg)](https://GitHub.com/marcusbuffett/command-line-chess/issues/)
-[![GitHub watchers](https://img.shields.io/github/watchers/marcusbuffett/command-line-chess.svg?style=social&label=Watch&maxAge=2592000)](https://github.com/marcusbuffett/command-line-chess)
-[![GitHub stars](https://img.shields.io/github/stars/marcusbuffett/command-line-chess.svg?style=social&label=Star&maxAge=2592000)](https://github.com/marcusbuffett/command-line-chess)
+Gibong Hong, Jiajun Wang
 
-
-A python program to play chess against an AI in the terminal.
-
-Also check out my other project, a [chess training site](https://chessmadra.com/).
-
-## Features
-
-- Play chess against an AI in the terminal
-- Two player mode (run `chess --two` to enter)
-- possible commands:
-    * `a3`, `Nc3`, `Qxa`, etc: make a move
-    * `l`: prints every legal move
-    * `r`: make a random move
-    * `u`: undo your last move
-    * `quit`: resign the current game
-    * `gm`: prints moves of current game in PGN format
-    * `?`: help, prints all available commands
-
-## Screenshots
-Initial State:
-
-![Initial](https://i.imgur.com/PSS7csc.png)
-
-First move:
-
-![First move](https://i.imgur.com/AsXhhvC.png)
-
-## Installation
-
-### Install from [PyPI](https://pypi.org/project/cl-chess/)
-Just run the following command:
-
-```
-pip install cl-chess
-```
-
-### Install from source
-- First clone the repository:
-```
-git clone https://github.com/marcusbuffett/command-line-chess
-```
-- navigate into the newly created `command-line-chess` directory and run:
-```
-pip install .
-```
-## Usage
-
-```sh
-chess -h        # to see all possible options
-```
-```
-usage: chess [-h] [-t] [-w W] [-b B] [-c]
-
-A python program to play chess against an AI in the terminal.
-
-optional arguments:
-  -h, --help       show this help message and exit
-  -t, --two        to play a 2-player game (default: False)
-  -w W, --white W  color for white player (default: white)
-  -b B, --black B  color for black player (default: black)
-  -c, --checkered  use checkered theme for the chess board (default: False)
-
-Enjoy the game!
-
-```
-
-## Contributing
-
-Contributions are always welcome!
-
-See `CONTRIBUTING.md`for ways to get started.
-
-Please adhere to this project's `CODE-OF-CONDUCT.md`.
+Original Chess Game
+- 8*8 Table
+- Pieces having their own move: Pawns, Rooks, Knights, Bishops, Queen, and King
+- Two player game
+- Special Rules: En Passant, Promotion, Castling
+- Checkmate to win the game
+- To make strategic move, we need to consider the potential value of each piece
+ex) King > Queen > Rook > Bishop = Knight > Pawn
+- Lots of players follow this logic when they try to capture, exchange, or make other moves.
+  
+![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/chess_board.jpg)
 
 
-## LICENSE
-Take a look at the [LICENSE](https://github.com/marcusbuffett/command-line-chess/LICENSE) file
+A new version of Chess
 
-## Authors
+Indian Poker Game + Original Chess -> A New Version of Chess
 
-- [@marcusbuffett](https://www.github.com/marcusbuffett)
-- [@ClasherKasten](https://www.github.com/ClasherKasten)
+- With a deck of cards, every player has one card each, they will stick it on their forehead without seeing their cards.
+- Objective: Have the highest card in play to win
+- ”Reversed Poker”: As opponents are unaware of their cards, we need to give them impression that they have a high one.
+![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/India_poker.pic.jpg)
 
 
-## Questions, bugs, etc.
-Please create an issue.
+
+
 
 ## Technical stuff
 
