@@ -120,7 +120,7 @@ class AI:
         min1 = 1000
         for move in moves:
             self.board.makeMove(move)
-            temp,point = self.minimax(depth-1, maximizing == False, max1, min1)
+            temp,point = self.minimax(depth-1, not maximizing, max1, min1)
 
             if maximizing and point > score:
                 res = move
