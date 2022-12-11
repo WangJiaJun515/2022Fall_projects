@@ -34,6 +34,25 @@ A new version of Chess
 
 
 
+Heuristic Scoring Table 
+- We need to create the board evaluation part as Minimax algorithm is used for each step.
+- Piece Square Tables by Heuristic approach
+- The values could be set in an 8*8 matrix so that it has a higher value at favorable positions 
+and a lower value at a non-favorable place.
+- For example, in the case of Queen piece, she would like her to be placed at the center position
+as she can dominate relatively more positions from the center.
+![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/table1.jpg)
+
+- Consider the scoring table initialized for each piece.
+- Also, we need to include the position of opponents’ pieces such that we can adjust the value of scoring table to make reasonable move: Our pieces would - - rather avoid the opponents’ pieces having higher values (6, 7, 8)
+- For each turn, scoring function updates the values in the original scoring table by considering possible legal moves of all pieces and finding whether the new coordinate is occupied by the opponent’s piece.
+![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/table2.jpg)
+
+![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/table3.jpg)
+
+Rule Exception: Queen and King can be captured by any other pieces, to make the game end.
+
+
 
 ## Technical stuff
 
