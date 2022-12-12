@@ -125,14 +125,14 @@ class Board:
         original_table = self.tables[lastMove.piece.stringRep]
         if lastMove.newPos in lastMove.table.keys():
             if piece.side == WHITE:
-                self.points -= lastMove.table[lastMove.newPos] + original_table.table[::-1][lastMove.newPos.rank][lastMove.newPos.file]
+                self.points -= lastMove.table[lastMove.newPos] + original_table.table[lastMove.newPos.file][lastMove.newPos.rank]
             else:
-                self.points += lastMove.table[lastMove.newPos] + original_table.table[lastMove.newPos.rank][lastMove.newPos.file]
+                self.points += lastMove.table[lastMove.newPos] + original_table.table[::-1][lastMove.newPos.file][lastMove.newPos.rank]
         else:
             if piece.side == WHITE:
-                self.points -= original_table.table[::-1][lastMove.newPos.rank][lastMove.newPos.file]
+                self.points -= original_table.table[lastMove.newPos.file][lastMove.newPos.rank]
             else:
-                self.points += original_table.table[lastMove.newPos.rank][lastMove.newPos.file]
+                self.points += original_table.table[::-1][lastMove.newPos.file][lastMove.newPos.rank]
 
         if lastMove.queensideCastle or lastMove.kingsideCastle:
             king = lastMove.piece
@@ -450,20 +450,23 @@ class Board:
                 elif piece.stringRep == 'Q':
                     move.table[piece.position] = 150
                 elif piece.stringRep == 'K':
-                    move.table[piece.position] = 1000
+                    move.table[piece.position] = 300
         original_table = self.tables[move.piece.stringRep]
-
         # In the case of moving to occupied coordinate, we need to consider the Heuristic reward table
-        if move.newPos in move.table.keys():    
+        if move.newPos in move.table.keys():
             if move.piece.side == WHITE:    # + for WHITE, - for BLACK
-                self.points += move.table[move.newPos] + original_table.table[::-1][move.newPos.rank][move.newPos.file]
+                self.points += move.table[move.newPos] + original_table.table[move.newPos.file][move.newPos.rank]
             else:
-                self.points -= move.table[move.newPos] + original_table.table[move.newPos.rank][move.newPos.file]
+                self.points -= move.table[move.newPos] + original_table.table[::-1][move.newPos.file][move.newPos.rank]
         else:
             if move.piece.side == WHITE:
-                self.points += original_table.table[::-1][move.newPos.rank][move.newPos.file]
+                temp = original_table.table[move.newPos.file][move.newPos.rank]
+                #print(move.piece.stringRep,move.newPos.file,move.newPos.rank,temp)
+
+                self.points += temp
             else:
-                self.points -= original_table.table[move.newPos.rank][move.newPos.file]
+                temp = original_table.table[::-1][move.newPos.file][move.newPos.rank]
+                self.points -= temp
 
         self.addMoveToHistory(move)
 

@@ -83,7 +83,7 @@ class AI:
         '''moveTree = self.generateMoveTree()
         bestMoves = self.bestMovesWithMoveTree(moveTree)
         randomBestMove = random.choice(bestMoves)'''
-        move,score = self.minimax(self.depth, False,-1000,1000)
+        move,score = self.minimax(self.depth, False,-10000,10000)
         print(score)
         move.notation = self.parser.notationForMove(move)
         return move
@@ -116,8 +116,8 @@ class AI:
         if maximizing:
             score = -1000
         else: score = 1000
-        max1 = - 1000
-        min1 = 1000
+        max1 = - 10000
+        min1 = 10000
         for move in moves:
             self.board.makeMove(move)
             temp,point = self.minimax(depth-1, not maximizing, max1, min1)

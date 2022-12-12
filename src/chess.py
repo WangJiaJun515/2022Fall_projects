@@ -182,6 +182,7 @@ def twoPlayerGame(board: Board) -> None:
     parserBlack = InputParser(board, BLACK)
     while True:
         printBoard(board)
+        print(board.points)
         if board.isCheckmate():
             print('Checkmate')
             printGameMoves(board.history)
@@ -227,6 +228,7 @@ def twoPlayerGame(board: Board) -> None:
             print('%s' % error)
             continue
         makeMove(move, board)
+
 
 
 board = Board()
