@@ -1,48 +1,35 @@
+# Invisible Chess
 
-A modified version of Chess
+This is a modified version of Chess which is a combination of Indian Poker Game and Original Chess Game\
 
-Gibong Hong, Jiajun Wang
+You can find the baseline of our chess game at this link: https://github.com/marcusbuffett/command-line-chess
 
-Original Chess Game
-- 8*8 Table
-- Pieces having their own move: Pawns, Rooks, Knights, Bishops, Queen, and King
-- Two player game
-- Special Rules: En Passant, Promotion, Castling
-- Checkmate to win the game
-- To make strategic move, we need to consider the potential value of each piece
-ex) King > Queen > Rook > Bishop = Knight > Pawn
-- Lots of players follow this logic when they try to capture, exchange, or make other moves.
-  
-![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/chess_board.jpg)
+## Members
 
+Jiajun Wang and Gibong Hong
 
-A new version of Chess
+## Rules for Invisible Chess
 
-Indian Poker Game + Original Chess -> A New Version of Chess
+- Our new type of chess has two major differences with the original one.
+- First of all, each piece have integer value which is assigned randomly. Unlike original chess where each piece can capture opponent's pieces, our new version can capture the piece of counterpart only if it has higher or same value than the opponent's one.
+  - For example, if a player move pawn to the position where the rook with its value 4 is located, the pawn could capture the rook only if its value is higher than 4.
+- Secondly, players are not aware of values of their own pieces, only to know values of opponent's pieces.
+- Except these two aspects, other rules are same as the original one.
 
-- With a deck of cards, every player has one card each, they will stick it on their forehead without seeing their cards.
-- Objective: Have the highest card in play to win
-- ”Reversed Poker”: As opponents are unaware of their cards, we need to give them impression that they have a high one.
-![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/India_poker.jpg)
+## Screenshots
 
+### Initial Board State
 
-A new version of Chess
-
-- Each piece is randomly assigned its original value and a certain piece could be capture only if it has lower value than the opponent’s one
-- Each player is not aware of values of their own pieces, only to know values of opponent’s pieces.
 ![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/new_version.jpg)
 
+### Heuristic Scoring Table
 
-
-Heuristic Scoring Table 
 - We need to create the board evaluation part as Minimax algorithm is used for each step.
-- Piece Square Tables by Heuristic approach
-- The values could be set in an 8*8 matrix so that it has a higher value at favorable positions 
-and a lower value at a non-favorable place.
+- The values could be set in an 8*8 matrix so that it has a higher value at favorable positions and a lower value at a non-favorable place.
 - For example, in the case of Queen piece, she would like her to be placed at the center position
 as she can dominate relatively more positions from the center.
-
-
+- Piece square tables we used are from this link (https://medium.com/dscvitpune/lets-create-a-chess-ai-8542a12afef
+). However, we modified some values as we found that AI does not move in smart way when using the original tables.
 
 ![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/table.pic.jpg)
 
@@ -51,18 +38,13 @@ as she can dominate relatively more positions from the center.
 - For each turn, scoring function updates the values in the original scoring table by considering possible legal moves of all pieces and finding whether the new coordinate is occupied by the opponent’s piece.
 - Rule Exception: Queen and King can be captured by any other pieces, to make the game end.
 
-
 ![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/scoring1.jpg)
-
-
-
-
-
 ![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/scoring2.jpg)
 
+## Contribution
 
-
-
+- Jiajun Wang: Implementation of Minimax Function with pruning, modification for functions including Move and undoMove, error correction, setting visualization for detailed rules in our game.
+- Gibong Hong: Setting Heuristic Scoring Table, modification for scoring function in Move function.
 
 ## Technical stuff
 
