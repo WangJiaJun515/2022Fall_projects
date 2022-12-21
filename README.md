@@ -52,6 +52,12 @@ The AI is a simple brute-force Minimax AI with pruning. The board class contains
 
 
 Algorithm Time Complexity Analysis:
-Since we are using the base code provided by @marcusbuffett, so we followed the overall structure of the previous code, and made some changes on rules(judging capturing which piece can win), AI(using minimax, also updated the scoring table to evaluate position score). According to the introduction of our scoring function above, our scoring can be divided to two parts. When one certain piece is going to move to a certain position, we have a original score table as the basic table, and the program will also generate another table which throught positions of opponent pieces, then getting the final points if move to that certain position. We put that process of generating another table at MakeMove() function, so the basic time complexity will be added O(K) (K represents the number of pieces of each side) every time we call MakeMove(). 
+Since we are using the base code provided by @marcusbuffett, so we followed the overall structure of the previous code, and made some changes on rules(judging capturing which piece can win), AI(using minimax, also updated the scoring table to evaluate position score). According to the introduction of our scoring function above, our scoring can be divided to two parts. When one certain piece is going to move to a certain position, we have a original score table as the basic table, and the program will also generate another table which throught positions of opponent pieces, then getting the final points if move to that certain position. We put that process of generating another table at MakeMove() function, so the basic time complexity will be added O(k) (k represents the number of pieces of each side) every time when we call MakeMove(). 
 ![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/O(k).jpg)
+ 
+In our Minimax function, the basic structure is dfs, and we need to makeMove() and undoMove() to get the score of each move, so the total time complexity will be k times the orginial dfs time complexity.
+
+Comparsion between pruning and non-pruning:
+![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/pruning.jpg)
+![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/non-pruning.jpg)
 
