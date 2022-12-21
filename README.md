@@ -49,3 +49,7 @@ as she can dominate relatively more positions from the center.
 ## Technical stuff
 
 The AI is a simple brute-force Minimax AI with pruning. The board class contains an attribute named points, if one piece moves to a certain position, the points of board will (white piece - adding, black piece - reducing) update correlative points through scoring table and opponents' value. Then it will evaluate the tree of moves and get the path that takes the greatest points.
+
+
+Algorithm Time Complexity Analysis:
+Since we are using the base code provided by @marcusbuffett, so we followed the overall structure of the previous code, and made some changes on rules(judging capturing which piece can win), AI(using minimax, also updated the scoring table to evaluate position score). According to the introduction of our scoring function above, our scoring can be divided to two parts. When one certain piece is going to move to a certain position, we have a original score table as the basic table, and the program will also generate another table which throught positions of opponent pieces, then getting the final points if move to that certain position. We put that process of generating another table at MakeMove() function, so the basic time complexity will be added O(K) (K represents the number of pieces of each side) every time we call MakeMove(). 
