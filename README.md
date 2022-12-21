@@ -57,7 +57,7 @@ Since we are using the base code provided by @marcusbuffett, so we followed the 
  
 In our Minimax function, the basic structure is dfs, and we need to makeMove() and undoMove() to get the score of each move, so the total time complexity will be k times the orginial dfs time complexity.
 
-Comparsion between pruning and non-pruning:
+Comparsion between pruning and non-pruning: The minimax() is called 10 times less in pruning verstion than non-pruning version.
 ![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/pruning.jpg)
 ![Image text](https://github.com/WangJiaJun515/2022Fall_projects/blob/main/img/non-pruning.jpg)
 
